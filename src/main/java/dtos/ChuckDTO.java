@@ -6,7 +6,7 @@ public class ChuckDTO {
     String id;
     String updated_at;
     String url;
-    String value;
+    String value;//testing remember to delete
 
     public ChuckDTO() {
     }
