@@ -8,6 +8,8 @@ public class ChuckDTO {
     String url;
     String value;
     String testString;
+    String visualStudioCommit;
+    String visualStudioCommitTwo;
 
     public ChuckDTO() {
     }
