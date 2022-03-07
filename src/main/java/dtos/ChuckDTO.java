@@ -7,6 +7,7 @@ public class ChuckDTO {
     String updated_at;
     String url;
     String value;
+    String testString;
 
     public ChuckDTO() {
     }
