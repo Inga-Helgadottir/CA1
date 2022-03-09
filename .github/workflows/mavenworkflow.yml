@@ -6,7 +6,7 @@ on:
 jobs:
   Do-the-travis-thing:
     runs-on: ubuntu-latest
-    # services:
+    # services: testing
     #   mysql:
     #     image: mysql:8.0
     #     env:
