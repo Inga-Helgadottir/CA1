@@ -5,7 +5,7 @@ on:
     - master
 jobs:
   Do-the-travis-thing:
-    runs-on: ubuntu-20.04 #or ubuntu-latest
+    runs-on: ubuntu-latest
     # services:
     #   mysql:
     #     image: mysql:8.0
