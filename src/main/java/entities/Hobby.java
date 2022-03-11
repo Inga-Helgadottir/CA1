@@ -1,13 +1,9 @@
 package entities;
 
-<<<<<<< HEAD
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-=======
-import javax.persistence.*;
->>>>>>> main
 
 @Entity
 public class Hobby {
