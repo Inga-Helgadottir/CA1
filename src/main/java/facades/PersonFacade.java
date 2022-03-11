@@ -38,4 +38,10 @@ public class PersonFacade {
             em.close();
         }
     }
+
+    public PersonDTO getUserById(int id) {
+        EntityManager em = emf.createEntityManager();
+        Person rm = em.find(Person.class, id);
+        return new PersonDTO(rm);
+    }
 }
