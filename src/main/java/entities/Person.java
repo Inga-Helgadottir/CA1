@@ -4,6 +4,10 @@ import javax.persistence.*;
 
 @Entity
 public class Person {
+
+    @Id
+    @Column(name = "idPerson")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPerson;
     private String firstName;
     private String lastName;
@@ -28,8 +32,6 @@ public class Person {
         this.email = email;
     }
 
-    @Id
-    @Column(name = "idPerson")
     public int getIdPerson() {
         return idPerson;
     }

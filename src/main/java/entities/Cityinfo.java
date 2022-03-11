@@ -1,12 +1,12 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cityinfo {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String zipcode;
     private String city;
@@ -25,8 +25,6 @@ public class Cityinfo {
         this.city = city;
     }
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }

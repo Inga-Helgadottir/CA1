@@ -1,12 +1,12 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Hobby {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String wikiLink;
@@ -31,8 +31,6 @@ public class Hobby {
         this.type = type;
     }
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
