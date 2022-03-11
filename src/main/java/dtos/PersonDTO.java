@@ -26,11 +26,13 @@ public class PersonDTO {
 
 
     public PersonDTO(Person rm) {
-        this.idPerson = rm.getIdPerson();
-        this.firstName = rm.getFirstName();
-        this.lastName = rm.getLastName();
-        this.phoneNumber = rm.getPhoneNumber();
-        this.email = rm.getEmail();
+        if(rm != null){
+            this.idPerson = rm.getIdPerson();
+            this.firstName = rm.getFirstName();
+            this.lastName = rm.getLastName();
+            this.phoneNumber = rm.getPhoneNumber();
+            this.email = rm.getEmail();
+        }
     }
 
     public int getIdPerson() {

@@ -22,9 +22,11 @@ public class CityinfoDTO {
 
 
     public CityinfoDTO(Cityinfo rm) {
-        this.id = rm.getId();
-        this.zipcode = rm.getZipcode();
-        this.city = rm.getCity();
+        if(rm != null) {
+            this.id = rm.getId();
+            this.zipcode = rm.getZipcode();
+            this.city = rm.getCity();
+        }
     }
 
     public int getId() {

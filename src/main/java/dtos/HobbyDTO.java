@@ -25,11 +25,13 @@ public class HobbyDTO {
 
 
     public HobbyDTO(Hobby rm) {
-        this.id = rm.getId();
-        this.name = rm.getName();
-        this.wikiLink = rm.getWikiLink();
-        this.category = rm.getCategory();
-        this.type = rm.getType();
+        if(rm != null) {
+            this.id = rm.getId();
+            this.name = rm.getName();
+            this.wikiLink = rm.getWikiLink();
+            this.category = rm.getCategory();
+            this.type = rm.getType();
+        }
     }
 
     public String getName() {
