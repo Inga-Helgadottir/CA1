@@ -38,7 +38,7 @@ class PersonFacadeTest {
 
     @Test
     void getAllUsers() {
-        int expected = 100;
+        int expected = personsSize;
         int actual = facade.getAllUsers().size();
         assertEquals(expected, actual);
     }
