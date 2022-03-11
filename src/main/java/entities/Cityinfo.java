@@ -14,12 +14,6 @@ public class Cityinfo {
     public Cityinfo() {
     }
 
-    public Cityinfo(int id, String zipcode, String city) {
-        this.id = id;
-        this.zipcode = zipcode;
-        this.city = city;
-    }
-
     public Cityinfo(String zipcode, String city) {
         this.zipcode = zipcode;
         this.city = city;

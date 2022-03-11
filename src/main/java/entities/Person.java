@@ -24,14 +24,6 @@ public class Person {
         this.email = email;
     }
 
-    public Person(int idPerson, String firstName, String lastName, String phoneNumber, String email) {
-        this.idPerson = idPerson;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
-
     public int getIdPerson() {
         return idPerson;
     }
