@@ -1,8 +1,6 @@
 package dtos;
 
 import entities.Cityinfo;
-import entities.RenameMe;
-
 import java.util.ArrayList;
 import java.util.List;
 

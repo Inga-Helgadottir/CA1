@@ -1,8 +1,6 @@
 package dtos;
 
 import entities.Hobby;
-import entities.RenameMe;
-
 import java.util.ArrayList;
 import java.util.List;
 
