@@ -10,6 +10,17 @@ public class Person {
     private String phoneNumber;
     private String email;
 
+    public Person() {
+    }
+
+    public Person(int idPerson, String firstName, String lastName, String phoneNumber, String email) {
+        this.idPerson = idPerson;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
     @Id
     @Column(name = "idPerson")
     public int getIdPerson() {

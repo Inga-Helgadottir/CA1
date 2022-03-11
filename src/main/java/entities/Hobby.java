@@ -13,6 +13,17 @@ public class Hobby {
     private String category;
     private String type;
 
+    public Hobby() {
+    }
+
+    public Hobby(int id, String name, String wikiLink, String category, String type) {
+        this.id = id;
+        this.name = name;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.type = type;
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
