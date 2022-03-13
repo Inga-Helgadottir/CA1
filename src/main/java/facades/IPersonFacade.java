@@ -2,8 +2,6 @@ package facades;
 
 import dtos.PersonDTO;
 import entities.Person;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 
 public interface IPersonFacade {
