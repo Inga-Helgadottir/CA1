@@ -1,7 +1,6 @@
 package facades;
 
 import dtos.PersonDTO;
-import entities.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

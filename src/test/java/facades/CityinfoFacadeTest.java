@@ -1,8 +1,6 @@
 package facades;
 
 import dtos.CityinfoDTO;
-import dtos.HobbyDTO;
-import entities.Cityinfo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
