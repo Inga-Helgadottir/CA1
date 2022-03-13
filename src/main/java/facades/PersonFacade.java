@@ -81,4 +81,9 @@ public class PersonFacade implements IPersonFacade{
     public PersonDTO getUserByHobby(String hobby) {
         return null;
     }
+
+    @Override
+    public PersonDTO addUser(PersonDTO newUser) {
+        return null;
+    }
 }

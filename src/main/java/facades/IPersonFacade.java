@@ -11,4 +11,5 @@ public interface IPersonFacade {
     void deleteUser(int id);
     PersonDTO getUserByZipcode(String zipcode);
     PersonDTO getUserByHobby(String hobby);
+    PersonDTO addUser(PersonDTO newUser);
 }
