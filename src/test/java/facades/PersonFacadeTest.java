@@ -43,11 +43,11 @@ class PersonFacadeTest {
             em.getTransaction().commit();
 
             em.getTransaction().begin();
-            p1 = new Person("Missy", "Parker", "12345678", "myemail@something.com");
-            p2 = new Person("Max", "Masters", "14785239", "anemail@something.com");
-            p3 = new Person("Kelly", "Link", "12345555", "this@gmail.com");
-            p4 = new Person("Colin", "Lane", "12874678", "haha@mail.com");
-            p5 = new Person("Patty", "Spencer", "12365878", "hihi@email.com");
+            p1 = new Person(1, "Missy", "Parker", "12345678", "myemail@something.com");
+            p2 = new Person(2, "Max", "Masters", "14785239", "anemail@something.com");
+            p3 = new Person(3, "Kelly", "Link", "12345555", "this@gmail.com");
+            p4 = new Person(4, "Colin", "Lane", "12874678", "haha@mail.com");
+            p5 = new Person(5, "Patty", "Spencer", "12365878", "hihi@email.com");
             p1.setHobby(em.find(Hobby.class, 1));
             p2.setHobby(em.find(Hobby.class, 20));
             p3.setHobby(em.find(Hobby.class, 55));
@@ -60,6 +60,8 @@ class PersonFacadeTest {
             p5.setCityinfo(em.find(Cityinfo.class, 84));
 
             em.persist(p1);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(p2);
             em.persist(p3);
             em.persist(p4);
@@ -83,7 +85,7 @@ class PersonFacadeTest {
 
     @Test
     void getUserById() {
-        PersonDTO expected = new PersonDTO(p4);
+        PersonDTO expected = new PersonDTO(p1);
         PersonDTO actual = facade.getUserById(1);
         assertEquals(expected, actual);
     }
