@@ -50,18 +50,6 @@ public class PersonFacade {
         }
     }
 
-//    public List<PersonDTO> getUsersByHobby(String hobby) {
-//        EntityManager em = emf.createEntityManager();
-//        try{
-//            TypedQuery<Person> query = em.createQuery("SELECT p, h FROM Person p INNER JOIN Hobby h ON p.hobby = h.id WHERE h.name = :dbHobby", Person.class);
-//            query.setParameter("dbHobby", hobby);
-//            List<Person> rms = query.getResultList();
-//            return PersonDTO.getDtos(rms);
-//        }finally {
-//            em.close();
-//        }
-//    }
-
     public PersonDTO updateUser(PersonDTO updatedPerson) {
         EntityManager em = emf.createEntityManager();
         try {
