@@ -5,6 +5,7 @@ import entities.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -49,16 +50,25 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO updateUser(PersonDTO updatedPerson) {
+    public PersonDTO updateUser(Person updatedPerson) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Person rm = em.find(Person.class, updatedPerson.getIdPerson());
-            em.persist(rm);
+            Person p = em.merge(updatedPerson);
             em.getTransaction().commit();
-            return updatedPerson;
+            return new PersonDTO(p);
         }finally {
             em.close();
         }
+    }
+
+    public void deleteUser(int id) throws EntityNotFoundException {
+        EntityManager em = getEntityManager();
+        Person p = em.find(Person.class, id);
+        if (p == null)
+            throw new EntityNotFoundException("Could not remove User with id: " + id);
+        em.getTransaction().begin();
+        em.remove(p);
+        em.getTransaction().commit();
     }
 }

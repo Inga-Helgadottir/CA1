@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person p")
 public class Person {
 
     @Id
@@ -30,6 +31,16 @@ public class Person {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public Person(int idPerson, String firstName, String lastName, String phoneNumber, String email) {
+        this.idPerson = idPerson;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.hobby = hobby;
+        this.cityinfo = cityinfo;
     }
 
     public int getIdPerson() {
@@ -78,6 +89,22 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Hobby getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(Hobby hobby) {
+        this.hobby = hobby;
+    }
+
+    public Cityinfo getCityinfo() {
+        return cityinfo;
+    }
+
+    public void setCityinfo(Cityinfo cityinfo) {
+        this.cityinfo = cityinfo;
     }
 
     @Override

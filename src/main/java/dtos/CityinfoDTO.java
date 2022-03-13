@@ -3,6 +3,7 @@ package dtos;
 import entities.Cityinfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CityinfoDTO {
     private int id;
@@ -51,6 +52,19 @@ public class CityinfoDTO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CityinfoDTO that = (CityinfoDTO) o;
+        return id == that.id && zipcode.equals(that.zipcode) && city.equals(that.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, zipcode, city);
     }
 
     @Override

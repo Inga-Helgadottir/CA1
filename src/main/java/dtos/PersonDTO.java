@@ -3,6 +3,7 @@ package dtos;
 import entities.Person;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PersonDTO {
     private int idPerson;
@@ -73,6 +74,19 @@ public class PersonDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return idPerson == personDTO.idPerson && firstName.equals(personDTO.firstName) && lastName.equals(personDTO.lastName) && phoneNumber.equals(personDTO.phoneNumber) && email.equals(personDTO.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPerson, firstName, lastName, phoneNumber, email);
     }
 
     @Override

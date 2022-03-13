@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby h")
 public class Hobby {
     @Id
     @Column(name = "id")
