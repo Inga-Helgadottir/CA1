@@ -57,4 +57,12 @@ class PersonFacadeTest {
         assertEquals(expected4, actual.getPhoneNumber());
         assertEquals(expected5, actual.getEmail());
     }
+
+    @Test
+    void updateUser() {
+        PersonDTO expected = facade.getUserById(1);
+        expected.setFirstName("Hihi");
+        PersonDTO actual = facade.updateUser(expected);
+        assertEquals(expected.getFirstName(), actual.getFirstName());
+    }
 }

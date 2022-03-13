@@ -1,7 +1,17 @@
 package facades;
 
+import dtos.CityinfoDTO;
+import dtos.HobbyDTO;
+import dtos.PersonDTO;
+import entities.Cityinfo;
+import entities.Hobby;
+import entities.Person;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.List;
 
 public class CityinfoFacade {
 
@@ -22,4 +32,26 @@ public class CityinfoFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+
+    public CityinfoDTO getZipcodeById(int id) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            Cityinfo rm = em.find(Cityinfo.class, id);
+            return new CityinfoDTO(rm);
+        }finally {
+            em.close();
+        }
+    }
+
+    public List<CityinfoDTO> getAllZipcodes() {
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Cityinfo> query = em.createQuery("SELECT c FROM Cityinfo c", Cityinfo.class);
+            List<Cityinfo> rms = query.getResultList();
+            return CityinfoDTO.getDtos(rms);
+        }finally {
+            em.close();
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import entities.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import java.util.Collection;
 import java.util.List;
 
 public class PersonFacade {
@@ -41,7 +42,36 @@ public class PersonFacade {
 
     public PersonDTO getUserById(int id) {
         EntityManager em = emf.createEntityManager();
-        Person rm = em.find(Person.class, id);
-        return new PersonDTO(rm);
+        try{
+            Person rm = em.find(Person.class, id);
+            return new PersonDTO(rm);
+        }finally {
+            em.close();
+        }
+    }
+
+//    public List<PersonDTO> getUsersByHobby(String hobby) {
+//        EntityManager em = emf.createEntityManager();
+//        try{
+//            TypedQuery<Person> query = em.createQuery("SELECT p, h FROM Person p INNER JOIN Hobby h ON p.hobby = h.id WHERE h.name = :dbHobby", Person.class);
+//            query.setParameter("dbHobby", hobby);
+//            List<Person> rms = query.getResultList();
+//            return PersonDTO.getDtos(rms);
+//        }finally {
+//            em.close();
+//        }
+//    }
+
+    public PersonDTO updateUser(PersonDTO updatedPerson) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Person rm = em.find(Person.class, updatedPerson.getIdPerson());
+            em.persist(rm);
+            em.getTransaction().commit();
+            return updatedPerson;
+        }finally {
+            em.close();
+        }
     }
 }

@@ -14,6 +14,14 @@ public class Person {
     private String phoneNumber;
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "HOBBY_id", referencedColumnName = "id", nullable = false)
+    private Hobby hobby;
+
+    @ManyToOne
+    @JoinColumn(name = "CITYINFO_id", referencedColumnName = "id", nullable = false)
+    private Cityinfo cityinfo;
+
     public Person() {
     }
 
