@@ -6,7 +6,7 @@ import entities.Hobby;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class HobbyFacade {
+public class HobbyFacade implements IHobbyFacade{
     private static HobbyFacade instance;
     private static EntityManagerFactory emf;
 

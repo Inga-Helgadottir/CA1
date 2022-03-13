@@ -9,7 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class PersonFacade {
+public class PersonFacade implements IPersonFacade{
 
     private static PersonFacade instance;
     private static EntityManagerFactory emf;
@@ -70,5 +70,15 @@ public class PersonFacade {
         em.getTransaction().begin();
         em.remove(p);
         em.getTransaction().commit();
+    }
+
+    @Override
+    public PersonDTO getUserByZipcode(String zipcode) {
+        return null;
+    }
+
+    @Override
+    public PersonDTO getUserByHobby(String hobby) {
+        return null;
     }
 }

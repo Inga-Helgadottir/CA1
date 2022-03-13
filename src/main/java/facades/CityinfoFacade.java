@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class CityinfoFacade {
+public class CityinfoFacade implements ICityinfoFacade{
 
     private static CityinfoFacade instance;
     private static EntityManagerFactory emf;
