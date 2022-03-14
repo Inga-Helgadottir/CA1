@@ -29,11 +29,12 @@ class PersonFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
         facade = PersonFacade.getPersonFacade(emf);
-        pft.personsSize = 5;
     }
 
     @BeforeEach
     void setUp() {
+        pft.personsSize = 5;
+        System.out.println("Setting up the test database");
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -77,6 +78,7 @@ class PersonFacadeTest {
 
     @Test
     void getAllUsers() {
+        System.out.println("Get all users");
         int expected = pft.personsSize;
         int actual = facade.getAllUsers().size();
         assertEquals(expected, actual);
@@ -84,6 +86,7 @@ class PersonFacadeTest {
 
     @Test
     void getUserById() {
+        System.out.println("Get user by id");
         PersonDTO expected = new PersonDTO(p1);
         PersonDTO actual = facade.getUserById(1);
         assertEquals(expected, actual);
@@ -91,6 +94,7 @@ class PersonFacadeTest {
 
     @Test
     void updateUser() {
+        System.out.println("Update user");
         p1.setFirstName("TestName");
         p1.setLastName("Tester");
         PersonDTO expected = new PersonDTO(p1);
@@ -99,7 +103,22 @@ class PersonFacadeTest {
     }
 
     @Test
+    void addUser() {
+        EntityManager em = emf.createEntityManager();
+        System.out.println("Add user");
+        Person p = new Person("Kelly", "Parkers", "12345678", "myEmailIsHere@somewhere.com");
+        p.setHobby(em.find(Hobby.class, 84));
+        p.setCityinfo(em.find(Cityinfo.class, 22));
+        pft.personsSize = pft.personsSize + 1;
+        p.setIdPerson(pft.personsSize);
+        PersonDTO expected = new PersonDTO(p);
+        PersonDTO actual = facade.addUser(p);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void deleteUser() {
+        System.out.println("Delete user");
         facade.deleteUser(2);
         pft.personsSize = pft.personsSize - 1;
         int expected = pft.personsSize;
@@ -109,6 +128,7 @@ class PersonFacadeTest {
 
     @Test
     void getUsersByHobby() {
+        System.out.println("Get users by hobby");
         int expected = 2;
         int actual = facade.getUsersByHobby("Akrobatik").size();
         assertEquals(expected, actual);
@@ -116,6 +136,7 @@ class PersonFacadeTest {
 
     @Test
     void getUsersByZipcode() {
+        System.out.println("Get users by zipcode");
         int expected = 2;
         int actual = facade.getUsersByZipcode("1060").size();
         assertEquals(expected, actual);

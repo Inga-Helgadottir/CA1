@@ -103,7 +103,15 @@ public class PersonFacade implements IPersonFacade{
     }
 
     @Override
-    public PersonDTO addUser(PersonDTO newUser) {
-        return null;
+    public PersonDTO addUser(Person newUser) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.persist(newUser);
+            em.getTransaction().commit();
+            return new PersonDTO(newUser);
+        }finally {
+            em.close();
+        }
     }
 }

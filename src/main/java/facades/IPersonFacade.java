@@ -11,5 +11,5 @@ public interface IPersonFacade {
     void deleteUser(int id);
     List<PersonDTO> getUsersByZipcode(String zipcode);
     List<PersonDTO> getUsersByHobby(String hobby);
-    PersonDTO addUser(PersonDTO newUser);
+    PersonDTO addUser(Person newUser);
 }
