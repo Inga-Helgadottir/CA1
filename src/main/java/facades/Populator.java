@@ -15,7 +15,6 @@ import utils.EMF_Creator;
 public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-//        FacadeExample fe = FacadeExample.getFacadeExample(emf);
     }
     
     public static void main(String[] args) {
