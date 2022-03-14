@@ -78,7 +78,15 @@ public class PersonFacade implements IPersonFacade{
 
     @Override
     public List<PersonDTO> getUsersByZipcode(String zipcode) {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p WHERE p.cityinfo.zipcode = :zipcode", Person.class);
+            query.setParameter("zipcode", zipcode);
+            List<Person> rms = query.getResultList();
+            return PersonDTO.getDtos(rms);
+        }finally {
+            em.close();
+        }
     }
 
     @Override

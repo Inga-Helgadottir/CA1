@@ -54,7 +54,7 @@ class PersonFacadeTest {
             p5.setHobby(em.find(Hobby.class, 12));
             p1.setCityinfo(em.find(Cityinfo.class, 55));
             p2.setCityinfo(em.find(Cityinfo.class, 6));
-            p3.setCityinfo(em.find(Cityinfo.class, 10));
+            p3.setCityinfo(em.find(Cityinfo.class, 55));
             p4.setCityinfo(em.find(Cityinfo.class, 66));
             p5.setCityinfo(em.find(Cityinfo.class, 84));
 
@@ -107,11 +107,17 @@ class PersonFacadeTest {
         assertEquals(expected, actual);
     }
 
-
     @Test
     void getUsersByHobby() {
         int expected = 2;
         int actual = facade.getUsersByHobby("Akrobatik").size();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getUsersByZipcode() {
+        int expected = 2;
+        int actual = facade.getUsersByZipcode("1060").size();
         assertEquals(expected, actual);
     }
 
