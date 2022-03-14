@@ -9,7 +9,7 @@ public interface IPersonFacade {
     PersonDTO getUserById(int id);
     PersonDTO updateUser(Person updatedPerson);
     void deleteUser(int id);
-    PersonDTO getUserByZipcode(String zipcode);
-    PersonDTO getUserByHobby(String hobby);
+    List<PersonDTO> getUsersByZipcode(String zipcode);
+    List<PersonDTO> getUsersByHobby(String hobby);
     PersonDTO addUser(PersonDTO newUser);
 }

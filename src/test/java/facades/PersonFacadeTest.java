@@ -16,7 +16,6 @@ import javax.persistence.EntityManagerFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonFacadeTest {
-
     private static EntityManagerFactory emf;
     private static PersonFacade facade;
     private static PersonFacadeTest pft = new PersonFacadeTest();
@@ -43,15 +42,15 @@ class PersonFacadeTest {
             em.getTransaction().commit();
 
             em.getTransaction().begin();
-            p1 = new Person(1, "Missy", "Parker", "12345678", "myemail@something.com");
-            p2 = new Person(2, "Max", "Masters", "14785239", "anemail@something.com");
-            p3 = new Person(3, "Kelly", "Link", "12345555", "this@gmail.com");
-            p4 = new Person(4, "Colin", "Lane", "12874678", "haha@mail.com");
-            p5 = new Person(5, "Patty", "Spencer", "12365878", "hihi@email.com");
+            p1 = new Person("Missy", "Parker", "12345678", "myemail@something.com");
+            p2 = new Person("Max", "Masters", "14785239", "anemail@something.com");
+            p3 = new Person("Kelly", "Link", "12345555", "this@gmail.com");
+            p4 = new Person("Colin", "Lane", "12874678", "haha@mail.com");
+            p5 = new Person("Patty", "Spencer", "12365878", "hihi@email.com");
             p1.setHobby(em.find(Hobby.class, 1));
-            p2.setHobby(em.find(Hobby.class, 20));
+            p2.setHobby(em.find(Hobby.class, 2));
             p3.setHobby(em.find(Hobby.class, 55));
-            p4.setHobby(em.find(Hobby.class, 21));
+            p4.setHobby(em.find(Hobby.class, 2));
             p5.setHobby(em.find(Hobby.class, 12));
             p1.setCityinfo(em.find(Cityinfo.class, 55));
             p2.setCityinfo(em.find(Cityinfo.class, 6));
@@ -105,6 +104,14 @@ class PersonFacadeTest {
         pft.personsSize = pft.personsSize - 1;
         int expected = pft.personsSize;
         int actual = facade.getAllUsers().size();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void getUsersByHobby() {
+        int expected = 2;
+        int actual = facade.getUsersByHobby("Akrobatik").size();
         assertEquals(expected, actual);
     }
 

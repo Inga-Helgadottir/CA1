@@ -64,22 +64,34 @@ public class PersonFacade implements IPersonFacade{
 
     public void deleteUser(int id) throws EntityNotFoundException {
         EntityManager em = getEntityManager();
-        Person p = em.find(Person.class, id);
-        if (p == null)
-            throw new EntityNotFoundException("Could not remove User with id: " + id);
-        em.getTransaction().begin();
-        em.remove(p);
-        em.getTransaction().commit();
+        try{
+            Person p = em.find(Person.class, id);
+            if (p == null)
+                throw new EntityNotFoundException("Could not remove User with id: " + id);
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
     }
 
     @Override
-    public PersonDTO getUserByZipcode(String zipcode) {
+    public List<PersonDTO> getUsersByZipcode(String zipcode) {
         return null;
     }
 
     @Override
-    public PersonDTO getUserByHobby(String hobby) {
-        return null;
+    public List<PersonDTO> getUsersByHobby(String hobby) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p WHERE p.hobby.name = :hobbyName", Person.class);
+            query.setParameter("hobbyName", hobby);
+            List<Person> rms = query.getResultList();
+            return PersonDTO.getDtos(rms);
+        }finally {
+            em.close();
+        }
     }
 
     @Override
