@@ -1,11 +1,15 @@
 package rest;
 
+import dtos.HobbyDTO;
+import dtos.PersonDTO;
 import entities.Cityinfo;
 import entities.Hobby;
 import entities.Person;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.*;
@@ -15,12 +19,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HobbyResourceTest {
     private static EntityManagerFactory emf;
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api/";
-    private static Hobby h1, h2, h3, h4;
+    private static Hobby h1, h2;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -48,8 +57,6 @@ class HobbyResourceTest {
     @AfterAll
     public static void closeTestServer() {
         System.out.println("Closing test server");
-        //System.in.read();
-
         //Don't forget this, if you called its counterpart in @BeforeAll
         EMF_Creator.endREST_TestWithDB();
         httpServer.shutdownNow();
@@ -68,12 +75,10 @@ class HobbyResourceTest {
             em.getTransaction().begin();
             h1 = new Hobby("testHobby name", "1testWiki Link", "1testCategory", "1testType");
             h2 = new Hobby("2testHobby name", "2testWiki Link", "2testCategory", "2testType");
-            h3 = new Hobby("3testHobby name", "3testWiki Link", "3testCategory", "3testType");
-            h4 = new Hobby("4testHobby name", "4testWiki Link", "4testCategory", "4testType");
             em.persist(h1);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(h2);
-            em.persist(h3);
-            em.persist(h4);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -83,12 +88,37 @@ class HobbyResourceTest {
     @AfterEach
     void tearDown() {
     }
+    @Test
+    void getAllHobbies() {
+        System.out.println("Testing get all hobbies");
+        List<HobbyDTO> hobbyDTOs;
+
+        hobbyDTOs = given()
+                .contentType("application/json")
+                .when()
+                .get("hobby/all")
+                .then()
+                .extract().body().jsonPath().getList("", HobbyDTO.class);
+
+        HobbyDTO h1DTO = new HobbyDTO(h1);
+        HobbyDTO h2DTO = new HobbyDTO(h2);
+        assertEquals(hobbyDTOs.get(0), h1DTO);
+        assertEquals(hobbyDTOs.get(1), h2DTO);
+    }
 
     @Test
     void getHobbyById() {
+        System.out.println("Testing get hobbies by id");
+        given()
+                .contentType(ContentType.JSON)
+                .get("/hobby/{id}",h1.getId())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("id", equalTo(h1.getId()))
+                .body("name", equalTo(h1.getName()))
+                .body("wikiLink", equalTo(h1.getWikiLink()))
+                .body("category", equalTo(h1.getCategory()))
+                .body("type", equalTo(h1.getType()));
     }
-    /* TODO:
-        getHobbyById
-        getAllHobbies
-    */
 }

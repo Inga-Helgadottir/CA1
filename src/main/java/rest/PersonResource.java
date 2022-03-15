@@ -56,9 +56,6 @@ public class PersonResource {
         updateUser
         addUser
         deleteUser
-        -----------
-        HobbyResource
-        CityinfoResource
     */
 
 }

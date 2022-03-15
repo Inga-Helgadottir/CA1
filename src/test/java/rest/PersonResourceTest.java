@@ -30,7 +30,7 @@ class PersonResourceTest {
     private static EntityManagerFactory emf;
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api/";
-    private static Person dbp1, dbp2, dbp3, dbp4, dbp5;
+    private static Person dbp1, dbp2;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -58,9 +58,6 @@ class PersonResourceTest {
     @AfterAll
     public static void closeTestServer() {
         System.out.println("Closing test server");
-        //System.in.read();
-
-        //Don't forget this, if you called its counterpart in @BeforeAll
         EMF_Creator.endREST_TestWithDB();
         httpServer.shutdownNow();
     }
@@ -78,29 +75,15 @@ class PersonResourceTest {
             em.getTransaction().begin();
             dbp1 = new Person("Missy", "Parker", "12345678", "myemail@something.com");
             dbp2 = new Person("Max", "Masters", "14785239", "anemail@something.com");
-            dbp3 = new Person("Kelly", "Link", "12345555", "this@gmail.com");
-            dbp4 = new Person("Colin", "Lane", "12874678", "haha@mail.com");
-            dbp5 = new Person("Patty", "Spencer", "12365878", "hihi@email.com");
             dbp1.setHobby(em.find(Hobby.class, 1));
             dbp2.setHobby(em.find(Hobby.class, 1));
-            dbp3.setHobby(em.find(Hobby.class, 55));
-            dbp4.setHobby(em.find(Hobby.class, 2));
-            dbp5.setHobby(em.find(Hobby.class, 12));
             dbp1.setCityinfo(em.find(Cityinfo.class, 55));
             dbp2.setCityinfo(em.find(Cityinfo.class, 55));
-            dbp3.setCityinfo(em.find(Cityinfo.class, 6));
-            dbp4.setCityinfo(em.find(Cityinfo.class, 66));
-            dbp5.setCityinfo(em.find(Cityinfo.class, 84));
 
             em.persist(dbp1);
             em.getTransaction().commit();
             em.getTransaction().begin();
             em.persist(dbp2);
-            em.getTransaction().commit();
-            em.getTransaction().begin();
-            em.persist(dbp3);
-            em.persist(dbp4);
-            em.persist(dbp5);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -172,8 +155,5 @@ class PersonResourceTest {
         updateUser
         addUser
         deleteUser
-        -----------
-        HobbyResource
-        CityinfoResource
     */
 }

@@ -13,12 +13,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("Hobby")
+@Path("hobby")
 public class HobbyResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
     private static final HobbyFacade FACADE =  HobbyFacade.getHobbyFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    @Path("/all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAll() {
+        return Response.ok()
+                .entity(GSON.toJson(FACADE.getAllHobbies()))
+                .build();
+    }
 
     @Path("/{id}")
     @GET
@@ -27,7 +36,4 @@ public class HobbyResource {
         HobbyDTO h = FACADE.getHobbyById(id);
         return Response.ok().entity(GSON.toJson(h)).build();
     }
-    /* TODO:
-        getHobbyById
-    */
 }
