@@ -11,13 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("Hobby")
 public class HobbyResource {
-    /* TODO:
-        getHobbyById
-    */
-
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
     private static final HobbyFacade FACADE =  HobbyFacade.getHobbyFacade(EMF);
@@ -26,8 +23,11 @@ public class HobbyResource {
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public HobbyDTO getHobbyById(@PathParam("id") int id) {
+    public Response getHobbyById(@PathParam("id") int id) {
         HobbyDTO h = FACADE.getHobbyById(id);
-        return h;
+        return Response.ok().entity(GSON.toJson(h)).build();
     }
+    /* TODO:
+        getHobbyById
+    */
 }
