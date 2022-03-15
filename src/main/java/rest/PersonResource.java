@@ -40,17 +40,17 @@ public class PersonResource {
     @Path("zipcode/{zipcode}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<PersonDTO> getUsersByZipcode(@PathParam("zipcode") String zipcode) throws EntityNotFoundException {
+    public Response getUsersByZipcode(@PathParam("zipcode") String zipcode) throws EntityNotFoundException {
         List<PersonDTO> p = FACADE.getUsersByZipcode(zipcode);
-        return p;
+        return Response.ok().entity(GSON.toJson(p)).build();
     }
 
     @Path("hobby/{hobby}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<PersonDTO> getUsersByHobby(@PathParam("hobby") String hobby) throws EntityNotFoundException {
+    public Response getUsersByHobby(@PathParam("hobby") String hobby) throws EntityNotFoundException {
         List<PersonDTO> p = FACADE.getUsersByHobby(hobby);
-        return p;
+        return Response.ok().entity(GSON.toJson(p)).build();
     }
     /* TODO:  as a minimum a GET(done), POST and PUT
         updateUser
