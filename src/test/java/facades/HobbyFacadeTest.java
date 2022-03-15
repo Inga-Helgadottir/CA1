@@ -47,4 +47,12 @@ class HobbyFacadeTest {
         assertEquals(expected4, actual.getCategory());
         assertEquals(expected5, actual.getType());
     }
+
+    @Test
+    void getAllUsers() {
+        System.out.println("Get all users");
+        int expected = 451;
+        int actual = facade.getAllHobbies().size();
+        assertEquals(expected, actual);
+    }
 }

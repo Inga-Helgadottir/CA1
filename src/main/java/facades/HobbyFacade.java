@@ -5,6 +5,8 @@ import entities.Hobby;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class HobbyFacade implements IHobbyFacade{
     private static HobbyFacade instance;
@@ -34,6 +36,16 @@ public class HobbyFacade implements IHobbyFacade{
         }finally {
             em.close();
         }
+    }
 
+    public List<HobbyDTO> getAllHobbies() {
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h", Hobby.class);
+            List<Hobby> rms = query.getResultList();
+            return HobbyDTO.getDtos(rms);
+        }finally {
+            em.close();
+        }
     }
 }

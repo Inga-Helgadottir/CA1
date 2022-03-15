@@ -1,5 +1,6 @@
 package rest;
 
+import dtos.HobbyDTO;
 import dtos.PersonDTO;
 import entities.Cityinfo;
 import entities.Hobby;
@@ -43,7 +44,7 @@ class PersonResourceTest {
     @BeforeAll
     public static void setUpClass() {
         //This method must be called before you request the EntityManagerFactory
-        System.out.println("set up class");
+        System.out.println("Set up class");
         EMF_Creator.startREST_TestWithDB();
         emf = EMF_Creator.createEntityManagerFactoryForTest();
 
@@ -81,7 +82,7 @@ class PersonResourceTest {
             dbp4 = new Person("Colin", "Lane", "12874678", "haha@mail.com");
             dbp5 = new Person("Patty", "Spencer", "12365878", "hihi@email.com");
             dbp1.setHobby(em.find(Hobby.class, 1));
-            dbp2.setHobby(em.find(Hobby.class, 2));
+            dbp2.setHobby(em.find(Hobby.class, 1));
             dbp3.setHobby(em.find(Hobby.class, 55));
             dbp4.setHobby(em.find(Hobby.class, 2));
             dbp5.setHobby(em.find(Hobby.class, 12));
@@ -108,7 +109,7 @@ class PersonResourceTest {
 
     @Test
     void getAllUsers() {
-        System.out.println("Testing to get all persons");
+        System.out.println("Testing get all persons");
         List<PersonDTO> personDTOs;
 
         personDTOs = given()
@@ -126,7 +127,7 @@ class PersonResourceTest {
 
     @Test
     public void getById()  {
-        System.out.println("Testing to get person by id");
+        System.out.println("Testing get person by id");
        given()
                 .contentType(ContentType.JSON)
                 .get("/users/{id}",dbp1.getIdPerson())
@@ -140,7 +141,7 @@ class PersonResourceTest {
 
     @Test
     void getUsersByZipcode() {
-        System.out.println("Testing to get persons by zipcode");
+        System.out.println("Testing get persons by zipcode");
         PersonDTO p = new PersonDTO(dbp1);
         PersonDTO p2 = new PersonDTO(dbp2);
         List<PersonDTO> actualPersonsDTOs = given()
@@ -152,10 +153,27 @@ class PersonResourceTest {
         assertEquals(actualPersonsDTOs.get(0), p);
         assertEquals(actualPersonsDTOs.get(1), p2);
     }
-    /* TODO:
-        getUsersByHobby
+
+    @Test
+    void getUsersByHobby() {
+        System.out.println("Testing get persons by hobby");
+        PersonDTO p = new PersonDTO(dbp1);
+        PersonDTO p2 = new PersonDTO(dbp2);
+        List<PersonDTO> actualPersonsDTOs = given()
+                .contentType("application/json")
+                .when()
+                .get("users/hobby/{hobby}", dbp1.getHobby().getName())
+                .then()
+                .extract().body().jsonPath().getList("", PersonDTO.class);
+        assertEquals(actualPersonsDTOs.get(0), p);
+        assertEquals(actualPersonsDTOs.get(1), p2);
+    }
+    /* TODO:  as a minimum a GET(done), POST and PUT
         updateUser
         addUser
         deleteUser
+        -----------
+        HobbyResource
+        CityinfoResource
     */
 }
