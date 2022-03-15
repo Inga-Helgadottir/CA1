@@ -15,7 +15,6 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.List;
     /* TODO:
-        getUsersByZipcode
         getUsersByHobby
         updateUser
         addUser
@@ -44,19 +43,6 @@ public class PersonResource {
     public Response getById(@PathParam("id") int id) throws EntityNotFoundException {
         PersonDTO p = FACADE.getUserById(id);
         return Response.ok().entity(GSON.toJson(p)).build();
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPerson(String jsonContext) {
-        Person p = GSON.fromJson(jsonContext, Person.class);
-        Person addP = new Person(p.getFirstName(), p.getLastName(), p.getPhoneNumber(), p.getEmail());
-        return Response
-                .ok("SUCCESS")
-                .cookie(new NewCookie("test", p.getFirstName()))
-                .entity(GSON.toJson(FACADE.addUser(addP)))
-                .build();
     }
 
     @Path("zipcode/{zipcode}")
