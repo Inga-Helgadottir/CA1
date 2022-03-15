@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person p")
-@NamedQuery(name = "Person.size", query = "SELECT count(p) FROM Person p")
+@NamedQuery(name = "Person.size", query = "SELECT COUNT(p) FROM Person p")
 public class Person {
 
     @Id

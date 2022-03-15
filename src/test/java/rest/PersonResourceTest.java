@@ -16,17 +16,13 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import java.net.URI;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonResourceTest {
@@ -37,14 +33,6 @@ class PersonResourceTest {
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
-    /* TODO:
-        getUserById
-        getUsersByZipcode
-        getUsersByHobby
-        updateUser
-        addUser
-        deleteUser
-    */
 
     static HttpServer startServer() {
         System.out.println("Start server");
@@ -107,6 +95,8 @@ class PersonResourceTest {
             em.getTransaction().commit();
             em.getTransaction().begin();
             em.persist(dbp2);
+            em.getTransaction().commit();
+            em.getTransaction().begin();
             em.persist(dbp3);
             em.persist(dbp4);
             em.persist(dbp5);
@@ -114,12 +104,6 @@ class PersonResourceTest {
         } finally {
             em.close();
         }
-    }
-
-    @Test
-    public void testServerIsUp() {
-        System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
     }
 
     @Test
@@ -153,6 +137,7 @@ class PersonResourceTest {
                 .body("firstName", equalTo(dbp1.getFirstName()))
                 .body("lastName", equalTo(dbp1.getLastName()));
     }
+
     @Test
     void getUsersByZipcode() {
         System.out.println("Testing to get persons by zipcode");
@@ -167,5 +152,10 @@ class PersonResourceTest {
         assertEquals(actualPersonsDTOs.get(0), p);
         assertEquals(actualPersonsDTOs.get(1), p2);
     }
-
+    /* TODO:
+        getUsersByHobby
+        updateUser
+        addUser
+        deleteUser
+    */
 }

@@ -3,7 +3,6 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
-import entities.Person;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
@@ -11,15 +10,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.List;
-    /* TODO:
-        getUsersByHobby
-        updateUser
-        addUser
-        deleteUser
-    */
 
 @Path("users")
 public class PersonResource {
@@ -52,5 +44,11 @@ public class PersonResource {
         List<PersonDTO> p = FACADE.getUsersByZipcode(zipcode);
         return p;
     }
+    /* TODO:
+        getUsersByHobby
+        updateUser
+        addUser
+        deleteUser
+    */
 
 }
