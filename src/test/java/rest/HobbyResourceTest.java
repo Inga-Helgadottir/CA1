@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HobbyResourceTest {
     private static EntityManagerFactory emf;
+    /* TODO:
+        getHobbyById
+    */
 
     @BeforeAll
     public static void setUpClass() {

@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CityinfoResourceTest {
     private static EntityManagerFactory emf;
+    /* TODO:
+        getAllZipcodes
+        getZipcodeById
+    */
 
     @BeforeAll
     public static void setUpClass() {

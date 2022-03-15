@@ -14,6 +14,9 @@ import javax.ws.rs.core.MediaType;
 
 @Path("Hobby")
 public class HobbyResource {
+    /* TODO:
+        getHobbyById
+    */
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 

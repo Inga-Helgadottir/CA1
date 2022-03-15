@@ -3,17 +3,25 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
+import entities.Person;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 import java.util.List;
+    /* TODO:
+        getUsersByZipcode
+        getUsersByHobby
+        updateUser
+        addUser
+        deleteUser
+    */
 
-//Todo Remove or change relevant parts before ACTUAL use
 @Path("users")
 public class PersonResource {
 
@@ -22,11 +30,42 @@ public class PersonResource {
     private static final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<PersonDTO> getAllUsers() {
-        List<PersonDTO> p = FACADE.getAllUsers();
-        return p;
+    public Response getAll() {
+        return Response.ok()
+                .entity(GSON.toJson(FACADE.getAllUsers()))
+                .build();
     }
+
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getById(@PathParam("id") int id) throws EntityNotFoundException {
+        PersonDTO p = FACADE.getUserById(id);
+        return Response.ok().entity(GSON.toJson(p)).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addPerson(String jsonContext) {
+        Person p = GSON.fromJson(jsonContext, Person.class);
+        Person addP = new Person(p.getFirstName(), p.getLastName(), p.getPhoneNumber(), p.getEmail());
+        return Response
+                .ok("SUCCESS")
+                .cookie(new NewCookie("test", p.getFirstName()))
+                .entity(GSON.toJson(FACADE.addUser(addP)))
+                .build();
+    }
+
+//    @Path("/{zipcode}")
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public Response getUsersByZipcode(@PathParam("zipcode") String zipcode) throws EntityNotFoundException {
+////        List<PersonDTO> p = FACADE.getUsersByZipcode(zipcode);
+////        return Response.ok().entity(GSON.toJson(p)).build();
+//        return Response.ok().entity(GSON.toJson(FACADE.getUsersByZipcode(zipcode))).build();
+//    }
+
 }

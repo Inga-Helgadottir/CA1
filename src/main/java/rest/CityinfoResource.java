@@ -17,6 +17,10 @@ import java.util.List;
 
 @Path("CityInfo")
 public class CityinfoResource {
+    /* TODO:
+        getAllZipcodes
+        getZipcodeById
+    */
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 

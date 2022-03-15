@@ -15,6 +15,8 @@ import utils.EMF_Creator;
 public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+//        PersonFacade p = new PersonFacade().getPersonFacade(emf);
+//        System.out.println(p.getAllUsers());
     }
     
     public static void main(String[] args) {
