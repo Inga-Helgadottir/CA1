@@ -59,13 +59,22 @@ public class PersonResource {
                 .build();
     }
 
-//    @Path("/{zipcode}")
+    @Path("zipcode/{zipcode}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<PersonDTO> getUsersByZipcode(@PathParam("zipcode") String zipcode) throws EntityNotFoundException {
+        List<PersonDTO> p = FACADE.getUsersByZipcode(zipcode);
+//        return Response.ok().entity(GSON.toJson(FACADE.getUsersByZipcode(zipcode))).build();
+        return p;
+    }
+
+
+//    @Path("/title/{title}")
 //    @GET
 //    @Produces({MediaType.APPLICATION_JSON})
-//    public Response getUsersByZipcode(@PathParam("zipcode") String zipcode) throws EntityNotFoundException {
-////        List<PersonDTO> p = FACADE.getUsersByZipcode(zipcode);
-////        return Response.ok().entity(GSON.toJson(p)).build();
-//        return Response.ok().entity(GSON.toJson(FACADE.getUsersByZipcode(zipcode))).build();
+//    public List<Movie> getMovieByTitle(@PathParam("title") String title) {
+//        List<Movie> movie = FACADE.getMovieByTitle(title);
+//        return movie;
 //    }
 
 }

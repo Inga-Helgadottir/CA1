@@ -47,6 +47,7 @@ class PersonResourceTest {
     */
 
     static HttpServer startServer() {
+        System.out.println("Start server");
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
         return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
     }
@@ -67,6 +68,7 @@ class PersonResourceTest {
 
     @AfterAll
     public static void closeTestServer() {
+        System.out.println("Closing test server");
         //System.in.read();
 
         //Don't forget this, if you called its counterpart in @BeforeAll
@@ -102,9 +104,9 @@ class PersonResourceTest {
             dbp5.setCityinfo(em.find(Cityinfo.class, 84));
 
             em.persist(dbp1);
-            em.persist(dbp2);
             em.getTransaction().commit();
             em.getTransaction().begin();
+            em.persist(dbp2);
             em.persist(dbp3);
             em.persist(dbp4);
             em.persist(dbp5);
@@ -122,6 +124,7 @@ class PersonResourceTest {
 
     @Test
     void getAllUsers() {
+        System.out.println("Testing to get all persons");
         List<PersonDTO> personDTOs;
 
         personDTOs = given()
@@ -139,6 +142,7 @@ class PersonResourceTest {
 
     @Test
     public void getById()  {
+        System.out.println("Testing to get person by id");
        given()
                 .contentType(ContentType.JSON)
                 .get("/users/{id}",dbp1.getIdPerson())
@@ -149,29 +153,19 @@ class PersonResourceTest {
                 .body("firstName", equalTo(dbp1.getFirstName()))
                 .body("lastName", equalTo(dbp1.getLastName()));
     }
-//    @Test
-//    void getUsersByZipcode() {
-//        System.out.println("Testing to get persons by zipcode");
-//        List<PersonDTO> actualPersonsDTOs = given()
-//                .contentType("application/json")
-//                .when()
-//                .get("/users/" + dbp1.getCityinfo().getZipcode())
-//                .then()
-//                .extract().body().jsonPath().getList("", PersonDTO.class);
-//        assertThat(actualPersonsDTOs, containsInAnyOrder(dbp1, dbp2));
-//        List<PersonDTO> personDTOs;
-//        personDTOs = given()
-//                .contentType("application/json")
-//                .when()
-//                .get("users/{zipcode}", dbp1.getCityinfo().getZipcode())
-//                .then()
-//                .extract().body().jsonPath().getList("", PersonDTO.class);
-//
-//        PersonDTO p1DTO = new PersonDTO(dbp1);
-//        PersonDTO p2DTO = new PersonDTO(dbp2);
-//        assertEquals(personDTOs.get(0), p1DTO);
-//        assertEquals(personDTOs.get(1), p2DTO);
-
-//    }
+    @Test
+    void getUsersByZipcode() {
+        System.out.println("Testing to get persons by zipcode");
+        PersonDTO p = new PersonDTO(dbp1);
+        PersonDTO p2 = new PersonDTO(dbp2);
+        List<PersonDTO> actualPersonsDTOs = given()
+                .contentType("application/json")
+                .when()
+                .get("users/zipcode/{zipcode}", dbp1.getCityinfo().getZipcode())
+                .then()
+                .extract().body().jsonPath().getList("", PersonDTO.class);
+        assertEquals(actualPersonsDTOs.get(0), p);
+        assertEquals(actualPersonsDTOs.get(1), p2);
+    }
 
 }
