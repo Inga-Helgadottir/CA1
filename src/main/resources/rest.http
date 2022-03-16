@@ -18,20 +18,8 @@ Content-Type: application/json
     "firstName": "Bevis",
     "lastName": "Parker",
     "phoneNumber": "12345678",
-    "email": "myemail@something.com",
-    "hobby": {
-      "id": 2,
-      "name": "Akrobatik",
-      "wikiLink": "https://en.wikipedia.org/wiki/Acrobatics",
-      "category": "Generel",
-      "type": "Indendørs"
-    },
-    "cityinfo": {
-      "id": 2,
-      "zipcode": "0800",
-      "city": "Høje Taastrup"
-    }
-  }
+    "email": "myemail@something.com"
+}
 
 ###
 

@@ -11,7 +11,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -59,11 +58,11 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(String jsonContext) {
-        System.out.println("----------------------------------------------"+jsonContext);
         Person pdto = GSON.fromJson(jsonContext, Person.class);
-        System.out.println("----------------------------------------------"+pdto);
         PersonDTO newPdto = FACADE.addUser(pdto);
-        System.out.println("----------------------------------------------"+newPdto);
+        System.out.println("1. : " + pdto);
+        System.out.println("2. : " + newPdto);
+        System.out.println("3. : " + jsonContext);
         return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 
@@ -72,7 +71,6 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("id") int id, String jsonContext)  throws EntityNotFoundException {
-        System.out.println("js: " + jsonContext);
         Person pdto = GSON.fromJson(jsonContext, Person.class);
         PersonDTO updated = FACADE.updateUser(pdto);
         return Response.ok().entity(GSON.toJson(updated)).build();
