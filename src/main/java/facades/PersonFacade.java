@@ -62,7 +62,7 @@ public class PersonFacade implements IPersonFacade{
         }
     }
 
-    public void deleteUser(int id) throws EntityNotFoundException {
+    public PersonDTO deleteUser(int id) throws EntityNotFoundException {
         EntityManager em = getEntityManager();
         try{
             Person p = em.find(Person.class, id);
@@ -71,6 +71,7 @@ public class PersonFacade implements IPersonFacade{
             em.getTransaction().begin();
             em.remove(p);
             em.getTransaction().commit();
+            return new PersonDTO(p);
         }finally {
             em.close();
         }

@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
+import entities.Person;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
@@ -10,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -52,10 +54,35 @@ public class PersonResource {
         List<PersonDTO> p = FACADE.getUsersByHobby(hobby);
         return Response.ok().entity(GSON.toJson(p)).build();
     }
-    /* TODO:  as a minimum a GET(done), POST and PUT
-        updateUser
-        addUser
-        deleteUser
-    */
 
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(String jsonContext) {
+        System.out.println("----------------------------------------------"+jsonContext);
+        Person pdto = GSON.fromJson(jsonContext, Person.class);
+        System.out.println("----------------------------------------------"+pdto);
+        PersonDTO newPdto = FACADE.addUser(pdto);
+        System.out.println("----------------------------------------------"+newPdto);
+        return Response.ok().entity(GSON.toJson(newPdto)).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(@PathParam("id") int id, String jsonContext)  throws EntityNotFoundException {
+        System.out.println("js: " + jsonContext);
+        Person pdto = GSON.fromJson(jsonContext, Person.class);
+        PersonDTO updated = FACADE.updateUser(pdto);
+        return Response.ok().entity(GSON.toJson(updated)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response delete(@PathParam("id") int id) throws EntityNotFoundException {
+        PersonDTO deleted = FACADE.deleteUser(id);
+        return Response.ok().entity(GSON.toJson(deleted)).build();
+    }
 }

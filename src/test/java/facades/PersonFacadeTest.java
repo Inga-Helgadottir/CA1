@@ -50,14 +50,14 @@ class PersonFacadeTest {
             p5 = new Person("Patty", "Spencer", "12365878", "hihi@email.com");
             p1.setHobby(em.find(Hobby.class, 1));
             p2.setHobby(em.find(Hobby.class, 2));
-            p3.setHobby(em.find(Hobby.class, 55));
+            p3.setHobby(em.find(Hobby.class, 1));
             p4.setHobby(em.find(Hobby.class, 2));
-            p5.setHobby(em.find(Hobby.class, 12));
-            p1.setCityinfo(em.find(Cityinfo.class, 55));
-            p2.setCityinfo(em.find(Cityinfo.class, 6));
-            p3.setCityinfo(em.find(Cityinfo.class, 55));
-            p4.setCityinfo(em.find(Cityinfo.class, 66));
-            p5.setCityinfo(em.find(Cityinfo.class, 84));
+            p5.setHobby(em.find(Hobby.class, 1));
+            p1.setCityinfo(em.find(Cityinfo.class, 1));
+            p2.setCityinfo(em.find(Cityinfo.class, 2));
+            p3.setCityinfo(em.find(Cityinfo.class, 1));
+            p4.setCityinfo(em.find(Cityinfo.class, 2));
+            p5.setCityinfo(em.find(Cityinfo.class, 1));
 
             em.persist(p1);
             em.getTransaction().commit();
@@ -107,8 +107,8 @@ class PersonFacadeTest {
         EntityManager em = emf.createEntityManager();
         System.out.println("Add user");
         Person p = new Person("Kelly", "Parkers", "12345678", "myEmailIsHere@somewhere.com");
-        p.setHobby(em.find(Hobby.class, 84));
-        p.setCityinfo(em.find(Cityinfo.class, 22));
+        p.setHobby(em.find(Hobby.class, 1));
+        p.setCityinfo(em.find(Cityinfo.class, 1));
         pft.personsSize = pft.personsSize + 1;
         p.setIdPerson(pft.personsSize);
         PersonDTO expected = new PersonDTO(p);

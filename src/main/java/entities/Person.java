@@ -40,8 +40,6 @@ public class Person {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.hobby = hobby;
-        this.cityinfo = cityinfo;
     }
 
     public int getIdPerson() {

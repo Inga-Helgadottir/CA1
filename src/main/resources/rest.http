@@ -1,1 +1,62 @@
-GET http://localhost:8080/devops_starter_war_exploded/api/xxx/
+GET http://localhost:8080/devops_starter_war_exploded/api/users
+###
+
+GET http://localhost:8080/devops_starter_war_exploded/api/users/1
+###
+
+GET http://localhost:8080/devops_starter_war_exploded/api/users/zipcode/1002
+###
+
+GET http://localhost:8080/devops_starter_war_exploded/api/users/hobby/Astrologi
+###
+
+POST http://localhost:8080/devops_starter_war_exploded/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+    "firstName": "Bevis",
+    "lastName": "Parker",
+    "phoneNumber": "12345678",
+    "email": "myemail@something.com",
+    "hobby": {
+      "id": 2,
+      "name": "Akrobatik",
+      "wikiLink": "https://en.wikipedia.org/wiki/Acrobatics",
+      "category": "Generel",
+      "type": "Indendørs"
+    },
+    "cityinfo": {
+      "id": 2,
+      "zipcode": "0800",
+      "city": "Høje Taastrup"
+    }
+  }
+
+###
+
+PUT http://localhost:8080/devops_starter_war_exploded/api/users/2
+Content-Type: application/json
+
+{
+  "idPerson": 101,
+  "firstName": "Bevis",
+  "lastName": "Parker",
+  "phoneNumber": "12345678",
+  "email": "myemail@something.com",
+  "hobby": {
+    "id": 2,
+    "name": "Akrobatik",
+    "wikiLink": "https://en.wikipedia.org/wiki/Acrobatics",
+    "category": "Generel",
+    "type": "Indendørs"
+  },
+  "cityinfo": {
+    "id": 2,
+    "zipcode": "0800",
+    "city": "Høje Taastrup"
+  }
+}
+###
+DELETE http://localhost:8080/devops_starter_war_exploded/api/users/2
+

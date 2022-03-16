@@ -8,7 +8,7 @@ public interface IPersonFacade {
     List<PersonDTO> getAllUsers();
     PersonDTO getUserById(int id);
     PersonDTO updateUser(Person updatedPerson);
-    void deleteUser(int id);
+    PersonDTO deleteUser(int id);
     List<PersonDTO> getUsersByZipcode(String zipcode);
     List<PersonDTO> getUsersByHobby(String hobby);
     PersonDTO addUser(Person newUser);
