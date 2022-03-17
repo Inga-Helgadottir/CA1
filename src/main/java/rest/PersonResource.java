@@ -9,6 +9,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -60,8 +61,8 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(String jsonContext) {
-        Person pdto = GSON.fromJson(jsonContext, Person.class);
-        PersonDTO newPdto = FACADE.addUser(new PersonDTO(pdto));
+        PersonDTO pdto = GSON.fromJson(jsonContext, PersonDTO.class);
+        PersonDTO newPdto = FACADE.addUser(pdto);
         return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 
@@ -70,8 +71,8 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("id") int id, String jsonContext)  throws EntityNotFoundException {
-        Person pdto = GSON.fromJson(jsonContext, Person.class);
-        PersonDTO updated = FACADE.updateUser(pdto);
+        PersonDTO pdto = GSON.fromJson(jsonContext, PersonDTO.class);
+        PersonDTO updated = FACADE.updateUser(id, pdto);
         return Response.ok().entity(GSON.toJson(updated)).build();
     }
 

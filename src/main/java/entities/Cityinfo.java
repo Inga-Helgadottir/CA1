@@ -13,7 +13,7 @@ public class Cityinfo {
     private int id;
     private String zipcode;
     private String city;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "cityinfo")
     private List<Person> people = new ArrayList<>();
 
     public Cityinfo() {

@@ -49,13 +49,28 @@ public class PersonFacade implements IPersonFacade{
         }
     }
 
-    public PersonDTO updateUser(Person updatedPerson) {
+    public PersonDTO updateUser(int id, PersonDTO updatedPerson) {
         EntityManager em = emf.createEntityManager();
         try {
+            Person p = em.find(Person.class, id);
+            p.setFirstName(updatedPerson.getFirstName());
+            p.setLastName(updatedPerson.getLastName());
+            Cityinfo c = em.find(Cityinfo.class, updatedPerson.getCityinfo().getId());
+            Hobby h = em.find(Hobby.class, updatedPerson.getHobby().getId());
+            if(c == null){
+                c = new Cityinfo(updatedPerson.getCityinfo().getZipcode(), updatedPerson.getCityinfo().getCity());
+            }
+            c.addPeople(p);
+            if(h == null){
+                h = new Hobby(updatedPerson.getHobby().getName(), updatedPerson.getHobby().getWikiLink(), updatedPerson.getHobby().getCategory(), updatedPerson.getHobby().getType());
+            }
+            h.addPeople(p);
+            p.setCityinfo(c);
+            p.setHobby(h);
             em.getTransaction().begin();
-            Person p = em.merge(updatedPerson);
+            Person p2 = em.merge(p);
             em.getTransaction().commit();
-            return new PersonDTO(p);
+            return new PersonDTO(p2);
         }finally {
             em.close();
         }
@@ -107,8 +122,10 @@ public class PersonFacade implements IPersonFacade{
         EntityManager em = emf.createEntityManager();
         try{
             Person p = new Person(newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber(), newUser.getEmail());
+            p.setHobby(new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType()));
+            p.setCityinfo(new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity()));
             em.getTransaction().begin();
-            em.persist(newUser);
+            em.persist(p);
             em.getTransaction().commit();
             return new PersonDTO(p);
         }finally {

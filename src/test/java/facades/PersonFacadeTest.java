@@ -98,7 +98,7 @@ class PersonFacadeTest {
         p1.setFirstName("TestName");
         p1.setLastName("Tester");
         PersonDTO expected = new PersonDTO(p1);
-        PersonDTO actual = facade.updateUser(p1);
+        PersonDTO actual = facade.updateUser(p1.getIdPerson(), expected);
         assertEquals(expected, actual);
     }
 

@@ -1,4 +1,4 @@
-GET http://localhost:8080/devops_starter_war_exploded/api/users
+GET http://localhost:8080/devops_starter_war_exploded/api/users/all
 ###
 
 GET http://localhost:8080/devops_starter_war_exploded/api/users/1
@@ -18,7 +18,19 @@ Content-Type: application/json
   "firstName": "Bevis",
   "lastName": "Parker",
   "phoneNumber": "12345678",
-  "email": "myemail@something.com"
+  "email": "myemail@something.com",
+  "hobby": {
+    "id": 2,
+    "name": "Akrobatik",
+    "wikiLink": "https://en.wikipedia.org/wiki/Acrobatics",
+    "category": "Generel",
+    "type": "Indendørs"
+  },
+  "cityinfo": {
+    "id": 2,
+    "zipcode": "0800",
+    "city": "Høje Taastrup"
+  }
 }
 
 ###
@@ -27,8 +39,7 @@ PUT http://localhost:8080/devops_starter_war_exploded/api/users/2
 Content-Type: application/json
 
 {
-  "idPerson": 101,
-  "firstName": "Bevis",
+  "firstName": "Hannah",
   "lastName": "Parker",
   "phoneNumber": "12345678",
   "email": "myemail@something.com",

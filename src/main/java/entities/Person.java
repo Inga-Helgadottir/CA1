@@ -42,6 +42,15 @@ public class Person {
         this.email = email;
     }
 
+    public Person(String firstName, String lastName, String phoneNumber, String email, Hobby hobby, Cityinfo cityinfo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.hobby = hobby;
+        this.cityinfo = cityinfo;
+    }
+
     public int getIdPerson() {
         return idPerson;
     }

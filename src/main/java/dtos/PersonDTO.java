@@ -11,12 +11,16 @@ public class PersonDTO {
     private String lastName;
     private String phoneNumber;
     private String email;
+    private HobbyDTO hobby;
+    private CityinfoDTO cityinfo;
 
-    public PersonDTO(String firstName, String lastName, String phoneNumber, String email) {
+    public PersonDTO(String firstName, String lastName, String phoneNumber, String email, HobbyDTO hobby, CityinfoDTO cityinfo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.hobby = hobby;
+        this.cityinfo = cityinfo;
     }
 
     public static List<PersonDTO> getDtos(List<Person> rms){
@@ -34,6 +38,22 @@ public class PersonDTO {
             this.phoneNumber = rm.getPhoneNumber();
             this.email = rm.getEmail();
         }
+    }
+
+    public HobbyDTO getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(HobbyDTO hobby) {
+        this.hobby = hobby;
+    }
+
+    public CityinfoDTO getCityinfo() {
+        return cityinfo;
+    }
+
+    public void setCityinfo(CityinfoDTO cityinfo) {
+        this.cityinfo = cityinfo;
     }
 
     public int getIdPerson() {

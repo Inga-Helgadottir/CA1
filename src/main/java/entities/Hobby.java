@@ -15,7 +15,7 @@ public class Hobby {
     private String wikiLink;
     private String category;
     private String type;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "hobby")
     private List<Person> people = new ArrayList<>();
 
     public Hobby() {

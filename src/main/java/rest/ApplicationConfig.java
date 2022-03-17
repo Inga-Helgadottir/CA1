@@ -25,6 +25,7 @@ public class ApplicationConfig extends Application {
         resources.add(rest.PersonResource.class);
         resources.add(rest.HobbyResource.class);
         resources.add(rest.CityinfoResource.class);
+        resources.add(rest.Resource.class);
     }
     
 }
