@@ -16,11 +16,11 @@ public class Person {
     private String phoneNumber;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "HOBBY_id", referencedColumnName = "id", nullable = false)
     private Hobby hobby;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CITYINFO_id", referencedColumnName = "id", nullable = false)
     private Cityinfo cityinfo;
 

@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "Cityinfo.deleteAllRows", query = "DELETE from Cityinfo c")
@@ -11,6 +13,8 @@ public class Cityinfo {
     private int id;
     private String zipcode;
     private String city;
+    @OneToMany(mappedBy = "person")
+    private List<Person> people = new ArrayList<>();
 
     public Cityinfo() {
     }
@@ -46,6 +50,14 @@ public class Cityinfo {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void addPeople(Person p) {
+        this.people.add(p);
     }
 
     @Override

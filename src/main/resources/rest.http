@@ -10,15 +10,15 @@ GET http://localhost:8080/devops_starter_war_exploded/api/users/zipcode/1002
 GET http://localhost:8080/devops_starter_war_exploded/api/users/hobby/Astrologi
 ###
 
-POST http://localhost:8080/devops_starter_war_exploded/api/users
+POST http://localhost:8080/devops_starter_war_exploded/api/users/newPerson
 Accept: application/json
 Content-Type: application/json
 
 {
-    "firstName": "Bevis",
-    "lastName": "Parker",
-    "phoneNumber": "12345678",
-    "email": "myemail@something.com"
+  "firstName": "Bevis",
+  "lastName": "Parker",
+  "phoneNumber": "12345678",
+  "email": "myemail@something.com"
 }
 
 ###

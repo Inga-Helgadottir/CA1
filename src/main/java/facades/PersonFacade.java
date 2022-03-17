@@ -1,12 +1,11 @@
 package facades;
 
 import dtos.PersonDTO;
+import entities.Cityinfo;
+import entities.Hobby;
 import entities.Person;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 public class PersonFacade implements IPersonFacade{
@@ -104,13 +103,14 @@ public class PersonFacade implements IPersonFacade{
     }
 
     @Override
-    public PersonDTO addUser(Person newUser) {
+    public PersonDTO addUser(PersonDTO newUser) {
         EntityManager em = emf.createEntityManager();
         try{
+            Person p = new Person(newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber(), newUser.getEmail());
             em.getTransaction().begin();
             em.persist(newUser);
             em.getTransaction().commit();
-            return new PersonDTO(newUser);
+            return new PersonDTO(p);
         }finally {
             em.close();
         }

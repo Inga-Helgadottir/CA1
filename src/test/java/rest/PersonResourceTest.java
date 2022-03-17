@@ -173,7 +173,7 @@ class PersonResourceTest {
                 .and()
                 .body(requestBody)
                 .when()
-                .post("/users")
+                .post("/users/newPerson")
                 .then()
                 .assertThat()
                 .statusCode(200)

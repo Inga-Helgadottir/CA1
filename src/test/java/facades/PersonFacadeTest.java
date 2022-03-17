@@ -112,7 +112,7 @@ class PersonFacadeTest {
         pft.personsSize = pft.personsSize + 1;
         p.setIdPerson(pft.personsSize);
         PersonDTO expected = new PersonDTO(p);
-        PersonDTO actual = facade.addUser(p);
+        PersonDTO actual = facade.addUser(expected);
         assertEquals(expected, actual);
     }
 

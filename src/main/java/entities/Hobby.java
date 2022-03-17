@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby h")
@@ -13,6 +15,8 @@ public class Hobby {
     private String wikiLink;
     private String category;
     private String type;
+    @OneToMany(mappedBy = "person")
+    private List<Person> people = new ArrayList<>();
 
     public Hobby() {
     }
@@ -70,6 +74,14 @@ public class Hobby {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void addPeople(Person p) {
+        this.people.add(p);
     }
 
     @Override

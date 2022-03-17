@@ -22,6 +22,7 @@ public class PersonResource {
     private static final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+    @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
@@ -48,21 +49,19 @@ public class PersonResource {
 
     @Path("hobby/{hobby}")
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getUsersByHobby(@PathParam("hobby") String hobby) throws EntityNotFoundException {
         List<PersonDTO> p = FACADE.getUsersByHobby(hobby);
         return Response.ok().entity(GSON.toJson(p)).build();
     }
 
     @POST
-    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/newPerson")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(String jsonContext) {
         Person pdto = GSON.fromJson(jsonContext, Person.class);
-        PersonDTO newPdto = FACADE.addUser(pdto);
-        System.out.println("1. : " + pdto);
-        System.out.println("2. : " + newPdto);
-        System.out.println("3. : " + jsonContext);
+        PersonDTO newPdto = FACADE.addUser(new PersonDTO(pdto));
         return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 
