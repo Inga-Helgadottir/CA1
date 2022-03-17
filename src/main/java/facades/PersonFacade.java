@@ -60,10 +60,10 @@ public class PersonFacade implements IPersonFacade{
             if(c == null){
                 c = new Cityinfo(updatedPerson.getCityinfo().getZipcode(), updatedPerson.getCityinfo().getCity());
             }
-            c.addPeople(p);
             if(h == null){
                 h = new Hobby(updatedPerson.getHobby().getName(), updatedPerson.getHobby().getWikiLink(), updatedPerson.getHobby().getCategory(), updatedPerson.getHobby().getType());
             }
+            c.addPeople(p);
             h.addPeople(p);
             p.setCityinfo(c);
             p.setHobby(h);
@@ -122,18 +122,16 @@ public class PersonFacade implements IPersonFacade{
         EntityManager em = emf.createEntityManager();
         try{
             Person p = new Person(newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber(), newUser.getEmail());
-//            p.setCityinfo(new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity()));
-//            p.setHobby(new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType()));
 
             Cityinfo c = em.find(Cityinfo.class, newUser.getCityinfo().getId());
             Hobby h = em.find(Hobby.class, newUser.getHobby().getId());
             if(c == null){
                 c = new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity());
             }
-            c.addPeople(p);
             if(h == null){
                 h = new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType());
             }
+            c.addPeople(p);
             h.addPeople(p);
             em.getTransaction().begin();
             em.persist(p);

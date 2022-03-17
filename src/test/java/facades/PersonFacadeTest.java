@@ -135,8 +135,8 @@ class PersonFacadeTest {
         EntityManager em = emf.createEntityManager();
         System.out.println("Add user");
         Person p = new Person("Kelly", "Parkers", "12345678", "myEmailIsHere@somewhere.com");
-        p.setHobby(em.find(Hobby.class, 1));
-        p.setCityinfo(em.find(Cityinfo.class, 1));
+        p.setHobby(h1);
+        p.setCityinfo(c1);
         pft.personsSize = pft.personsSize + 1;
         p.setIdPerson(pft.personsSize);
         PersonDTO expected = new PersonDTO(p);
