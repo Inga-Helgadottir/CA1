@@ -122,8 +122,19 @@ public class PersonFacade implements IPersonFacade{
         EntityManager em = emf.createEntityManager();
         try{
             Person p = new Person(newUser.getFirstName(), newUser.getLastName(), newUser.getPhoneNumber(), newUser.getEmail());
-            p.setHobby(new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType()));
-            p.setCityinfo(new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity()));
+//            p.setCityinfo(new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity()));
+//            p.setHobby(new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType()));
+
+            Cityinfo c = em.find(Cityinfo.class, newUser.getCityinfo().getId());
+            Hobby h = em.find(Hobby.class, newUser.getHobby().getId());
+            if(c == null){
+                c = new Cityinfo(newUser.getCityinfo().getZipcode(), newUser.getCityinfo().getCity());
+            }
+            c.addPeople(p);
+            if(h == null){
+                h = new Hobby(newUser.getHobby().getName(), newUser.getHobby().getWikiLink(), newUser.getHobby().getCategory(), newUser.getHobby().getType());
+            }
+            h.addPeople(p);
             em.getTransaction().begin();
             em.persist(p);
             em.getTransaction().commit();
