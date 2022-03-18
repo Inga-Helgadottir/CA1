@@ -104,7 +104,7 @@ class PersonResourceTest {
         personDTOs = given()
                 .contentType("application/json")
                 .when()
-                .get("users")
+                .get("users/all")
                 .then()
                 .extract().body().jsonPath().getList("", PersonDTO.class);
 
